@@ -73,7 +73,7 @@ namespace st
 			static void init();					//st::Everything initialization routine called in your sketch setup() routine 
 			static void initDevices();			//calls the init() routine of every object added to st::Everything in your sketch setup() routine 
 			static void run();					//st::Everything initialization routine called in your sketch loop() routine 
-			
+			static inline void refresh() { refreshDevices(); } // refreshes all devices
 			static bool sendSmartString(String &str); //sendSmartString() may edit the string reference passed to it - queues messages - preferable
 			static bool sendSmartStringNow(String &str); //sendSmartStringNow() may edit the string reference passed to it - sends messages immediate - only for special circumstances
 

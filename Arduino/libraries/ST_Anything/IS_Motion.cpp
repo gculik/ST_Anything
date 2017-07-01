@@ -62,19 +62,19 @@ namespace st
 	//called periodically by Everything class to ensure ST Cloud is kept consistent with the state of the motion sensor
 	void IS_Motion::refresh()
 	{
-		Everything::sendSmartString(getName() + (getStatus() ? F(" active") : F(" inactive")));
+		Everything::sendSmartString(getName() + (getStatus() ? F(" active") : F(" inactive")) + F(" false"));
 	}
 
 	void IS_Motion::runInterrupt()
 	{
 		//add the "active" event to the buffer to be queued for transfer to the ST Shield
-		Everything::sendSmartString(getName() + F(" active"));
+		Everything::sendSmartString(getName() + F(" active") + F(" true"));
 	}
 	
 	void IS_Motion::runInterruptEnded()
 	{
 		//add the "inactive" event to the buffer to be queued for transfer to the ST Shield
-		Everything::sendSmartString(getName() + F(" inactive"));
+		Everything::sendSmartString(getName() + F(" inactive") + F(" true"));
 	}
 	
 	void IS_Motion::update()
@@ -87,7 +87,6 @@ namespace st
 				calibrated=true;
 				
 				//get current status of motion sensor by calling parent class's init() routine - no need to duplicate it here!
-				setInterruptPin(getInterruptPin());
 				InterruptSensor::init();
 				
 				if (debug)

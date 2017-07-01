@@ -55,19 +55,19 @@ namespace st
 	//called periodically by Everything class to ensure ST Cloud is kept consistent with the state of the contact sensor
 	void IS_Smoke::refresh()
 	{
-		Everything::sendSmartString(getName() + (getStatus() ? F(" clear") : F(" detected")));
+		Everything::sendSmartString(getName() + (getStatus() ? F(" detected") : F(" clear")) + F(" false"));
 	}
 
 	void IS_Smoke::runInterrupt()
 	{
-		//add the "closed" event to the buffer to be queued for transfer to the ST Shield
-		Everything::sendSmartString(getName() + F(" clear"));
+		//add the "detected" event to the buffer to be queued for transfer to the ST Shield
+		Everything::sendSmartString(getName() + F(" detected") + F(" true"));
 	}
 	
 	void IS_Smoke::runInterruptEnded()
 	{
-		//add the "open" event to the buffer to be queued for transfer to the ST Shield
-		Everything::sendSmartString(getName() + F(" detected"));
+		//add the "clear" event to the buffer to be queued for transfer to the ST Shield
+		Everything::sendSmartString(getName() + F(" clear") + F(" true"));
 	}
 
 }

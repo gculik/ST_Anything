@@ -84,7 +84,7 @@ namespace st
 				static const byte MAX_EXECUTOR_COUNT=20;				//Used to limit the number of executor devices allowed.  Be careful on Arduino UNO due to 2K SRAM limitation 
 			#else
 				//Maximum number of SENSOR objects
-				static const byte MAX_SENSOR_COUNT = 10;				//Used to limit the number of sensor devices allowed.  Be careful on Arduino UNO due to 2K SRAM limitation 
+				static const byte MAX_SENSOR_COUNT = 24;				//Used to limit the number of sensor devices allowed.  Be careful on Arduino UNO due to 2K SRAM limitation
 				//Maximum number of EXECUTOR objects
 				static const byte MAX_EXECUTOR_COUNT = 10;				//Used to limit the number of executor devices allowed.  Be careful on Arduino UNO due to 2K SRAM limitation 
 			#endif
