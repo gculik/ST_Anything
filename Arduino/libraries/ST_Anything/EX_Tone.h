@@ -33,6 +33,7 @@ namespace st
 
             // virtuals
             virtual void init();
+    		virtual void refresh();
             virtual void beSmart(const String &str);
             virtual void beep() const;
 

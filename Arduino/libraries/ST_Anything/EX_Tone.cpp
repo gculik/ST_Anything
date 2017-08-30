@@ -38,7 +38,14 @@ namespace st
     void EX_Tone::init()
     {
         pinMode(m_pin, OUTPUT);
+        refresh();
     }
+
+	//called periodically to ensure state of the Alarm Siren is up to date in the SmartThings Cloud (in case an event is missed)
+	void EX_Tone::refresh()
+	{
+		Everything::sendSmartString(getName() + F(" void"));
+	}
 
     /*
      * Parse the command messages from the SmartThings shield.
