@@ -11,7 +11,7 @@
  *  for the specific language governing permissions and limitations under the License.
  *
  *  Authors: Jiri Culik
- *  Summary:  EX_MomentarySwitch is a class which implements the SmartThings "Momentary" and "Switch" device capability.
+ *  Summary:  S_MomentarySwitch is a class which implements the SmartThings "Momentary" and "Switch" device capability.
  */
 #include "S_MomentarySwitch.h"
 
