@@ -12,8 +12,8 @@
  *  on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
  *  for the specific language governing permissions and limitations under the License.
  */
-#ifndef ST_PREFERENCE_H_
-#define ST_PREFERENCE_H_
+#ifndef PREFERENCE_H_
+#define PREFERENCE_H_
 
 #include <Arduino.h>
 
@@ -21,24 +21,26 @@
 
 namespace st
 {
-    class ST_Preference
+    class Preference
     {
         private:
             const String m_key;
             String m_value;
 
-            static ST_Preference* s_preferences[MAX_PREFERENCES_COUNT];
+            static Preference* s_preferences[MAX_PREFERENCES_COUNT];
 
         public:
-            ST_Preference(String& key, String& value);
-            virtual ~ST_Preference();
+            static const String NULL_STRING;
+
+            Preference(String& key, String& value);
+            virtual ~Preference();
 
             inline const String getKey() const { return m_key; }
-            inline const String getValue() const { return m_value; }
-            inline const String setValue(String& value) {  m_value = value; }
+            inline String getValue() const { return m_value; }
+            inline void setValue(String& value) {  m_value = value; }
 
-            static void setPreference(String& key, String& value);
-
+            static const String& get(String& key);
+            static void set(String& key, String& value);
     };
 }
-#endif /* ST_PREFERENCE_H_ */
+#endif /* PREFERENCE_H_ */

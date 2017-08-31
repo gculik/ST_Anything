@@ -11,7 +11,7 @@
  *  for the specific language governing permissions and limitations under the License.
  *
  *  Authors: Jiri Culik
- *  Summary:  EX_Preferences is a class which implements a SmartThings line "preferences" map
+ *  Summary:  EX_Preferences is a class which implements a SmartThings "preferences" map
  */
 #include "EX_Preferences.h"
 
@@ -29,19 +29,29 @@ namespace st
     }
 
     /*
-     * Parse the command messages from the SmartThings shield.
+     * Initialize the preferences.
+     */
+    void EX_Preferences::init()
+    {
+    	// send a void message to SmartThings so it can autowire the device
+		Everything::sendSmartString(getName() + F(" void"));
+    }
+
+    /*
+     * Parse the command message from the SmartThings.
      */
     void EX_Preferences::beSmart(const String &str)
     {
-        String s = str.substring(str.indexOf(' ') + 1);
+        String keyValue = str.substring(str.indexOf(' ') + 1);
+        String key = keyValue.substring(0, keyValue.indexOf(' '));
+        String value = keyValue.substring(keyValue.indexOf(' ') + 1);
+    	Preference::set(key, value);
         if (debug)
         {
             Serial.print(F("EX_Preferences::beSmart s = "));
-            Serial.println(s);
-        }
-        if ((s == F("refresh")))
-        {
-            Everything::refresh();
+            Serial.print(key);
+            Serial.print(F("="));
+            Serial.println(value);
         }
     }
 }

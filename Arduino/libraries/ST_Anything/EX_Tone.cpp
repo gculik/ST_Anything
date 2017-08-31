@@ -48,7 +48,7 @@ namespace st
 	}
 
     /*
-     * Parse the command messages from the SmartThings shield.
+     * Parse the command message from SmartThings.
      */
     void EX_Tone::beSmart(const String &str)
     {

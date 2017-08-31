@@ -17,6 +17,7 @@
 #define ST_EX_Preferences_H
 
 #include "Executor.h"
+#include "Preference.h"
 
 namespace st
 {
@@ -27,6 +28,7 @@ namespace st
             EX_Preferences(const __FlashStringHelper *name);
 
             // virtuals
+            virtual void init();
             virtual void beSmart(const String &str);
     };
 }

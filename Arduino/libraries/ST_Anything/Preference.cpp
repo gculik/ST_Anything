@@ -12,26 +12,46 @@
  *  on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
  *  for the specific language governing permissions and limitations under the License.
  */
-#include "ST_Preference.h"
+#include "Preference.h"
 
 namespace st
 {
-    ST_Preference* ST_Preference::s_preferences[MAX_PREFERENCES_COUNT];
+    Preference* Preference::s_preferences[MAX_PREFERENCES_COUNT];
+    const String NULL_STRING = String("NULL");
 
 	// constructor
-	ST_Preference::ST_Preference(String& key, String& value):
+	Preference::Preference(String& key, String& value):
 		m_key(key),
 		m_value(value)
 	{
 	}
 
 	// destructor
-	ST_Preference::~ST_Preference()
+	Preference::~Preference()
 	{
 	}
 
+	// gets the preference
+	const String& Preference::get(String& key)
+	{
+	    byte firstEmptyIndex = -1;
+	    for (byte index = 0; index < MAX_PREFERENCES_COUNT; index++)
+	    {
+	        // keep track of the first empty slot
+	        if (s_preferences[index] != NULL)
+	        {
+	            // look for a matching key
+	            if (s_preferences[index]->getKey() == key)
+	            {
+	            	return s_preferences[index]->getValue();
+	            }
+	        }
+	    }
+	    return NULL_STRING;
+	}
+
 	// sets the preference
-	void ST_Preference::setPreference(String& key, String& value)
+	void Preference::set(String& key, String& value)
 	{
 	    byte firstEmptyIndex = -1;
 	    for (byte index = 0; index < MAX_PREFERENCES_COUNT; index++)
@@ -65,7 +85,7 @@ namespace st
 	    // attempt to add a new preference
 	    if (firstEmptyIndex != -1)
 	    {
-	        s_preferences[firstEmptyIndex] = new ST_Preference(key, value);
+	        s_preferences[firstEmptyIndex] = new Preference(key, value);
 	    }
 	}
 }
