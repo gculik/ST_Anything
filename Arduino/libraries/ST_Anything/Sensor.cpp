@@ -29,7 +29,7 @@ namespace st
 	Sensor::Sensor(const __FlashStringHelper *name):
 		Device(name)
 	{
-	
+	    m_pType = F("Sensor");
 	}
 	
 	//destructor

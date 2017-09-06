@@ -41,6 +41,7 @@ namespace st
 		InterruptSensor(name, pin, iState, pullup, numReqCounts),  //use parent class' constructor
 		calibrated(false)
 		{
+			m_pType = F("IS_Motion");
 		}
 	
 	//destructor
@@ -67,13 +68,13 @@ namespace st
 
 	void IS_Motion::runInterrupt()
 	{
-		//add the "active" event to the buffer to be queued for transfer to the ST Shield
+		InterruptSensor::runInterrupt();
 		Everything::sendSmartString(getName() + F(" active") + F(" true"));
 	}
 	
 	void IS_Motion::runInterruptEnded()
 	{
-		//add the "inactive" event to the buffer to be queued for transfer to the ST Shield
+		InterruptSensor::runInterruptEnded();
 		Everything::sendSmartString(getName() + F(" inactive") + F(" true"));
 	}
 	

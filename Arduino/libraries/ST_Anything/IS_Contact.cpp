@@ -39,6 +39,7 @@ namespace st
 	IS_Contact::IS_Contact(const __FlashStringHelper *name, byte pin, bool iState, bool internalPullup, long numReqCounts) :
 		InterruptSensor(name, pin, iState, internalPullup, numReqCounts)  //use parent class' constructor
 		{
+			m_pType = F("IS_Contact");
 		}
 	
 	//destructor
@@ -61,12 +62,14 @@ namespace st
 	void IS_Contact::runInterrupt()
 	{
 		// the contact is opened
+		InterruptSensor::runInterrupt();
 		Everything::sendSmartString(getName() + F(" open") + F(" true"));
 	}
 	
 	void IS_Contact::runInterruptEnded()
 	{
 		// the contact is closed
+		InterruptSensor::runInterruptEnded();
 		Everything::sendSmartString(getName() + F(" closed") + F(" true"));
 	}
 

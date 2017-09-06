@@ -65,6 +65,7 @@ namespace st
 		m_nCurrentUpCount(0),
 		m_nCurrentDownCount(numReqCounts)
 		{
+			m_pType = F("InterruptSensor");
 		}
 	
 	//destructor
@@ -95,18 +96,26 @@ namespace st
 	//handles start of an interrupt - all derived classes should implement this virtual function
 	void InterruptSensor::runInterrupt()
 	{
+		if (Everything::callOnEvent != NULL)
+	    {
+			Everything::callOnEvent(*this);
+	    }
 		if(debug)
 		{
-			Everything::sendSmartString(getName()+F(" triggered ") + (m_bInterruptState?F("HIGH"):F("LOW)")));
+			Serial.println(F("InterruptSensor triggered"));
 		}
 	}
 	
 	//handles the end of an interrupt - all derived classes should implement this virtual function
 	void InterruptSensor::runInterruptEnded()
 	{
+		if (Everything::callOnEvent != NULL)
+	    {
+			Everything::callOnEvent(*this);
+	    }
 		if(debug)
 		{
-			Everything::sendSmartString(getName()+F(" ended ") + (m_bInterruptState?F("LOW)"):F("HIGH)")));
+			Serial.println(F("InterruptSensor cleared"));
 		}
 	}
 	

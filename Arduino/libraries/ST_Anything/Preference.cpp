@@ -16,11 +16,11 @@
 
 namespace st
 {
-    Preference* Preference::s_preferences[MAX_PREFERENCES_COUNT];
-    const String NULL_STRING = String("NULL");
+    Preference* Preference::s_preferences[MAX_PREFERENCES_COUNT] = {};
+    const String Preference::UNDEFINED_STRING = String("UNDEFINED");
 
 	// constructor
-	Preference::Preference(String& key, String& value):
+	Preference::Preference(String key, String value):
 		m_key(key),
 		m_value(value)
 	{
@@ -32,12 +32,10 @@ namespace st
 	}
 
 	// gets the preference
-	const String& Preference::get(String& key)
+	const String Preference::get(String key)
 	{
-	    byte firstEmptyIndex = -1;
 	    for (byte index = 0; index < MAX_PREFERENCES_COUNT; index++)
 	    {
-	        // keep track of the first empty slot
 	        if (s_preferences[index] != NULL)
 	        {
 	            // look for a matching key
@@ -47,36 +45,29 @@ namespace st
 	            }
 	        }
 	    }
-	    return NULL_STRING;
+	    return UNDEFINED_STRING;
 	}
 
 	// sets the preference
-	void Preference::set(String& key, String& value)
+	void Preference::set(String key, String value)
 	{
-	    byte firstEmptyIndex = -1;
+	    int firstEmptyIndex = -1;
 	    for (byte index = 0; index < MAX_PREFERENCES_COUNT; index++)
 	    {
 	        // keep track of the first empty slot
-	        if (s_preferences[index] == NULL && firstEmptyIndex == -1)
+	        if (s_preferences[index] == NULL)
 	        {
-	            firstEmptyIndex = index;
+	        	if (firstEmptyIndex == -1)
+	        	{
+	        		firstEmptyIndex = index;
+	        	}
 	        }
 	        else
 	        {
 	            // look for a matching key
 	            if (s_preferences[index]->getKey() == key)
 	            {
-	                // when the value is non NULL set the value on an existing preference
-	                if (value)
-	                {
-	                    s_preferences[index]->setValue(value);
-	                }
-                    // when the value is NULL we remove the preference
-	                else
-	                {
-	                    delete s_preferences[index];
-	                    s_preferences[index] = NULL;
-	                }
+                    s_preferences[index]->setValue(value);
 	                return;
 	            }
 	        }
@@ -86,6 +77,24 @@ namespace st
 	    if (firstEmptyIndex != -1)
 	    {
 	        s_preferences[firstEmptyIndex] = new Preference(key, value);
+	    }
+	}
+
+	// removes the preference
+	void Preference::remove(String key)
+	{
+	    for (byte index = 0; index < MAX_PREFERENCES_COUNT; index++)
+	    {
+	        if (s_preferences[index] != NULL)
+	        {
+	            // look for a matching key
+	            if (s_preferences[index]->getKey() == key)
+	            {
+	            	delete s_preferences[index];
+	            	s_preferences[index] = NULL;
+	            	return;
+	            }
+	        }
 	    }
 	}
 }

@@ -26,7 +26,8 @@ namespace st
 //public
 	//constructor
 	Device::Device(const __FlashStringHelper *name):
-		m_pName(name)
+		m_pName(name),
+	    m_pType(F("Device"))
 	{
 		if(debug)
 		{
@@ -58,6 +59,13 @@ namespace st
 		return String(tmp);	
 	}
 	
+	const String Device::getType() const
+	{
+		char tmp[Constants::MAX_NAME_LENGTH];
+		strcpy_P(tmp, (const char*)m_pType);
+
+		return String(tmp);
+	}
 
 	//debug flag to determine if debug print statements are executed (set value in your sketch)
 	bool Device::debug=false;

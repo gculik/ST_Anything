@@ -27,6 +27,9 @@ namespace st
 	{
 		private:
 			const __FlashStringHelper *m_pName;
+
+		protected:
+			const __FlashStringHelper *m_pType;
 			
 		public:
 			//constructor
@@ -46,6 +49,7 @@ namespace st
 
 			//gets
 			const String getName() const;
+			const String getType() const;
 				
 			//debug flag to determine if debug print statements are executed (set value in your sketch)
 			static bool debug;

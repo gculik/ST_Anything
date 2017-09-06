@@ -23,6 +23,7 @@ namespace st
 {
     static const unsigned int EX_Chime::DEFAULT_NOTES[] = { NOTE_GS7, NOTE_GS7 };
     static const unsigned int EX_Chime::DEFAULT_DURATIONS[] = { 6, 6 };
+	bool EX_Chime::debug=false;
 
     /*
      * Constructs the EX_Chime instance.
@@ -52,6 +53,10 @@ namespace st
 
             // pause between notes
             delay(duration);
+        }
+        if (debug)
+        {
+            Serial.println(F("EX_Chime: DING DONG"));
         }
     }
 }

@@ -30,17 +30,18 @@ namespace st
             static Preference* s_preferences[MAX_PREFERENCES_COUNT];
 
         public:
-            static const String NULL_STRING;
+            static const String UNDEFINED_STRING;
 
-            Preference(String& key, String& value);
+            Preference(String key, String value);
             virtual ~Preference();
 
             inline const String getKey() const { return m_key; }
             inline String getValue() const { return m_value; }
-            inline void setValue(String& value) {  m_value = value; }
+            inline void setValue(String value) {  m_value = value; }
 
-            static const String& get(String& key);
-            static void set(String& key, String& value);
+            static const String get(String key);
+            static void set(String key, String value);
+            static void remove(String key);
     };
 }
 #endif /* PREFERENCE_H_ */

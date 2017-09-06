@@ -347,6 +347,7 @@ namespace st
 	bool Everything::debug=false;
 	byte Everything::bTimersPending=0;	//initialize variable
 	void (*Everything::callOnMsgSend)(const String &msg)=0; //initialize this callback function to null
+	void (*Everything::callOnEvent)(const Device& device)=0; //initialize this callback function to null
 	
 	//SmartThings static members
 	//#ifndef DISABLE_SMARTTHINGS

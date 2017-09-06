@@ -44,6 +44,9 @@ namespace st
 
 		// virtuals
         virtual void beep() const override;
+
+        // debug flag
+		static bool debug;
 	};
 }
 #endif
