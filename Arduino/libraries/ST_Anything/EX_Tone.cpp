@@ -44,7 +44,7 @@ namespace st
 	//called periodically to ensure state of the Alarm Siren is up to date in the SmartThings Cloud (in case an event is missed)
 	void EX_Tone::refresh()
 	{
-		Everything::sendSmartString(getName() + F(" void"));
+		Everything::sendSmartString(getName() + F(" off"));
 	}
 
     /*

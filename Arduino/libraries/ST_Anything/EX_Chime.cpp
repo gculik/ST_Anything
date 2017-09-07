@@ -44,6 +44,9 @@ namespace st
      */
     void EX_Chime::beep() const
     {
+    	// send a beep status
+		Everything::sendSmartString(getName() + F(" beep"));
+
         // iterate over the notes of the melody
         for (unsigned int index = 0; index < m_size; index++)
         {
@@ -58,5 +61,8 @@ namespace st
         {
             Serial.println(F("EX_Chime: DING DONG"));
         }
+
+    	// send an off status
+		Everything::sendSmartString(getName() + F(" off"));
     }
 }
