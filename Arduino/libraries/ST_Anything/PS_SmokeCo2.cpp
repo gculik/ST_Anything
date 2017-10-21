@@ -41,24 +41,48 @@ namespace st
 	{
 	}
 
+	void PS_SmokeCo2::init()
+	{
+		updateAndSend(true);
+	}
+
+	void PS_SmokeCo2::refresh()
+	{
+		updateAndSend(true);
+	}
+
 	// read the analog input pin and determine whether CO2 or Smoke have been triggered.
 	void PS_SmokeCo2::getData()
+	{
+		updateAndSend(false);
+	}
+
+	void PS_SmokeCo2::updateAndSend(bool forceSend)
 	{
 		int value = analogRead(m_nAnalogInputPin);
 		if (value > m_smokeThreshold)
 		{
-            Everything::sendSmartString(getName() + F(" smoke:detected") + (m_lastState != SMOKE ? F(" true") : F(" false")));
+			if (forceSend == true || m_lastState != SMOKE)
+			{
+				Everything::sendSmartString(getName() + F(" smoke:detected") + (m_lastState != SMOKE ? F(" true") : F(" false")));
+			}
             m_lastState = SMOKE;
 		}
 		else if (value > m_co2Threshold)
 		{
-            Everything::sendSmartString(getName() + F(" carbonMonoxide:detected") + (m_lastState != CO2 ? F(" true") : F(" false")));
+			if (forceSend == true || m_lastState != CO2)
+			{
+				Everything::sendSmartString(getName() + F(" carbonMonoxide:detected") + (m_lastState != CO2 ? F(" true") : F(" false")));
+			}
             m_lastState = CO2;
 		}
 		else
 		{
-            Everything::sendSmartString(getName() + F(" smoke:clear") + (m_lastState != CLEAR ? F(" true") : F(" false")));
-            Everything::sendSmartString(getName() + F(" carbonMonoxide:clear") + (m_lastState != CLEAR ? F(" true") : F(" false")));
+			if (forceSend == true || m_lastState != CLEAR)
+			{
+				Everything::sendSmartString(getName() + F(" smoke:clear") + (m_lastState != CLEAR ? F(" true") : F(" false")));
+				Everything::sendSmartString(getName() + F(" carbonMonoxide:clear") + (m_lastState != CLEAR ? F(" true") : F(" false")));
+			}
             m_lastState = CLEAR;
 		}
 	}
