@@ -70,8 +70,8 @@ namespace st
 		Sensor(name),
 		m_nPreviousTime(0),
 		m_nDeltaTime(0),
-		m_nInterval(interval*1000),
-		m_nOffset(offset*1000)
+		m_nInterval(interval),
+		m_nOffset(offset)
 	{
 	
 	}
