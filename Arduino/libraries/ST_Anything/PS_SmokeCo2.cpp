@@ -41,49 +41,25 @@ namespace st
 	{
 	}
 
-	void PS_SmokeCo2::init()
-	{
-		updateAndSendState(true);
-	}
-
-	void PS_SmokeCo2::refresh()
-	{
-		updateAndSendState(true);
-	}
-
 	// read the analog input pin and determine whether CO2 or Smoke have been triggered.
 	void PS_SmokeCo2::getData()
-	{
-		updateAndSendState(false);
-	}
-
-	// updates the current state and send to the cloud, forceSend will send the update to the cloud regardless of any state changes
-	void PS_SmokeCo2::updateAndSendState(bool forceSend)
 	{
 		int value = analogRead(m_nAnalogInputPin);
 		if (value > m_smokeThreshold)
 		{
-			// only send an update if the state has changed or forceSend is enabled
-			if (forceSend == true || m_lastState != SMOKE)
-			{
-				Everything::sendSmartString(getName() + F(" smoke detected"));
-			}
+            Everything::sendSmartString(getName() + F(" smoke:detected") + (m_lastState != SMOKE ? F(" true") : F(" false")));
+            m_lastState = SMOKE;
 		}
 		else if (value > m_co2Threshold)
 		{
-			// only send an update if the state has changed or forceSend is enabled
-			if (forceSend == true || m_lastState != CO2)
-			{
-				Everything::sendSmartString(getName() + F(" carbonMonoxide detected"));
-			}
+            Everything::sendSmartString(getName() + F(" carbonMonoxide:detected") + (m_lastState != CO2 ? F(" true") : F(" false")));
+            m_lastState = CO2;
 		}
 		else
 		{
-			if (forceSend == true || m_lastState != CLEAR)
-			{
-				Everything::sendSmartString(getName() + F(" smoke clear"));
-				Everything::sendSmartString(getName() + F(" carbonMonoxide clear"));
-			}
+            Everything::sendSmartString(getName() + F(" smoke:clear") + (m_lastState != CLEAR ? F(" true") : F(" false")));
+            Everything::sendSmartString(getName() + F(" carbonMonoxide:clear") + (m_lastState != CLEAR ? F(" true") : F(" false")));
+            m_lastState = CLEAR;
 		}
 	}
 }
