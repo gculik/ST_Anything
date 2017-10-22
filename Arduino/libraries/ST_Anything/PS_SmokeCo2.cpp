@@ -64,7 +64,7 @@ namespace st
 		{
 			if (forceSend == true || m_lastState != SMOKE)
 			{
-				Everything::sendSmartString(getName() + F(" smoke:detected") + (m_lastState != SMOKE ? F(" true") : F(" false")));
+				Everything::sendSmartString(getName() + F(" smoke:detected true"));
 			}
             m_lastState = SMOKE;
 		}
@@ -72,7 +72,7 @@ namespace st
 		{
 			if (forceSend == true || m_lastState != CO2)
 			{
-				Everything::sendSmartString(getName() + F(" carbonMonoxide:detected") + (m_lastState != CO2 ? F(" true") : F(" false")));
+				Everything::sendSmartString(getName() + F(" carbonMonoxide:detected true"));
 			}
             m_lastState = CO2;
 		}
@@ -80,8 +80,8 @@ namespace st
 		{
 			if (forceSend == true || m_lastState != CLEAR)
 			{
-				Everything::sendSmartString(getName() + F(" smoke:clear") + (m_lastState != CLEAR ? F(" true") : F(" false")));
-				Everything::sendSmartString(getName() + F(" carbonMonoxide:clear") + (m_lastState != CLEAR ? F(" true") : F(" false")));
+				Everything::sendSmartString(getName() + F(" smoke:clear true"));
+				Everything::sendSmartString(getName() + F(" carbonMonoxide:clear true"));
 			}
             m_lastState = CLEAR;
 		}
