@@ -40,6 +40,8 @@ namespace st
 			virtual void init();
 			virtual void refresh();
 			virtual void getData();
+
+			static bool debug;
 	};
 }
 #endif

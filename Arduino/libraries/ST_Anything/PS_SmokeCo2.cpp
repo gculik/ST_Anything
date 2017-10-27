@@ -60,6 +60,11 @@ namespace st
 	void PS_SmokeCo2::updateAndSend(bool forceSend)
 	{
 		int value = analogRead(m_nAnalogInputPin);
+		if (debug)
+		{
+			Serial.print(F("PS_SmokeCo2: analog value = "));
+			Serial.println(value);
+		}
 		if (value > m_smokeThreshold)
 		{
 			if (forceSend == true || m_lastState != SMOKE)
