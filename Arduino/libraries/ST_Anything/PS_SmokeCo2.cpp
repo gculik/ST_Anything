@@ -91,4 +91,6 @@ namespace st
             m_lastState = CLEAR;
 		}
 	}
+
+	bool PS_SmokeCo2::debug=false;
 }
