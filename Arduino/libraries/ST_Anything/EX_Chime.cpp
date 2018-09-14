@@ -13,6 +13,7 @@
  *  Authors: Jiri Culik
  *  Summary:  EX_Chime is a class which implements the SmartThings "Tone" device capability,
  *            and produces a door chime melody, or an arbitrary user defined melody.
+ *            Additionally this chime allows for triggering of a continuous warning tone, when the system is armed.
  */
 #include "EX_Chime.h"
 
@@ -21,8 +22,8 @@
 
 namespace st
 {
-    static const unsigned int EX_Chime::DEFAULT_NOTES[] = { NOTE_GS7, NOTE_GS7 };
-    static const unsigned int EX_Chime::DEFAULT_DURATIONS[] = { 6, 6 };
+    const unsigned int EX_Chime::DEFAULT_NOTES[] = { NOTE_GS7, NOTE_GS7 };
+    const unsigned int EX_Chime::DEFAULT_DURATIONS[] = { 6, 6 };
 	bool EX_Chime::debug=false;
 
     /*
@@ -35,17 +36,47 @@ namespace st
      *          e.g. 1 = full note, 2 = half note 4 = quarter note, 8 = eighth note
      */
     EX_Chime::EX_Chime(const __FlashStringHelper *name, byte pin, unsigned int size, unsigned int notes[], unsigned int durations[]) :
-            EX_Tone(name, pin), m_size(size), m_notes(notes), m_durations(durations)
+            EX_Tone(name, pin), m_size(size), m_notes(notes), m_durations(durations), m_armed(false)
     {
     }
 
     /*
-     * Generate the note melody.
+     * Parse the command message from SmartThings.
      */
-    void EX_Chime::beep() const
+    void EX_Chime::beSmart(const String &str)
+    {
+        String s = str.substring(str.indexOf(' ') + 1);
+        if (debug)
+        {
+            Serial.print(F("EX_Chime::beSmart s = "));
+            Serial.println(s);
+        }
+        if ((s == F("chime")))
+        {
+            chime();
+        }
+        else if ((s == F("arm")))
+        {
+            arm();
+        }
+        else if ((s == F("warn")))
+        {
+            warn();
+        }
+        else if ((s == F("disarm")))
+        {
+            disarm();
+        }
+
+    }
+
+    /*
+     * Generate the standard chime melody.
+     */
+    void EX_Chime::chime() const
     {
     	// send a beep status
-		Everything::sendSmartString(getName() + F(" beep"));
+		Everything::sendSmartString(getName() + F(" chime"));
 
         // iterate over the notes of the melody
         for (unsigned int index = 0; index < m_size; index++)
@@ -63,6 +94,45 @@ namespace st
         }
 
     	// send an off status
-		Everything::sendSmartString(getName() + F(" off"));
+        if (m_armed)
+        {
+    		Everything::sendSmartString(getName() + F(" armed"));
+        }
+        else
+        {
+    		Everything::sendSmartString(getName() + F(" off"));
+        }
+    }
+
+    /*
+     * Arm the chime, which will allow it to chime repeatedly.
+     */
+    void EX_Chime::arm()
+    {
+        m_armed = true;
+  		Everything::sendSmartString(getName() + F(" armed"));
+    }
+
+    /*
+     * Sounds an armed warning only if armed.
+     */
+    void EX_Chime::warn() const
+    {
+        if (m_armed)
+        {
+		    if(millis() % MILLIS_PER_SECOND == 0)
+		    {
+                EX_Tone::beep(WARN_FREQUENCY, WARN_DURATION);
+		    }
+        }
+    }
+
+    /*
+     * Disarm the chime, which will stop it from chiming repeatedly.
+     */
+    void EX_Chime::disarm()
+    {
+        m_armed = false;
+  		Everything::sendSmartString(getName() + F(" off"));
     }
 }

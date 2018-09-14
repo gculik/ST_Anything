@@ -36,6 +36,7 @@ namespace st
     		virtual void refresh();
             virtual void beSmart(const String &str);
             virtual void beep() const;
+            virtual void beep(unsigned int frequency, unsigned long duration) const;
 
             // getters
             inline byte getPin() const { return m_pin; }

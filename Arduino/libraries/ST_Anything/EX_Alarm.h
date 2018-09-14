@@ -69,6 +69,7 @@ namespace st
 		//gets
 		virtual byte getPin() const { return m_nPin; }
 		virtual byte getStrobePin() const { return m_nPinStrobe; }
+		virtual Alarm_States getState() const { return m_nCurrentAlarmState; }
 
 		//sets
 		virtual void setPin(byte pin);

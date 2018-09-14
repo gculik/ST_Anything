@@ -69,6 +69,14 @@ namespace st
      */
     void EX_Tone::beep() const
     {
-        tone(m_pin, m_frequency, m_duration);
+        beep(m_frequency, m_duration);
+    }
+
+    /*
+     * Generates a beep tone at the specified frequency and duration.
+     */
+    void EX_Tone::beep(unsigned int frequency, unsigned long duration) const
+    {
+        tone(m_pin, frequency, duration);
     }
 }

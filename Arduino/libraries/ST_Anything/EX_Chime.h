@@ -24,7 +24,8 @@
 #define TEMPO_BPM 60
 #define TEMPO_BPS TEMPO_BPM / 60
 #define MILLIS_PER_SECOND 1000
-
+#define WARN_FREQUENCY 400u
+#define WARN_DURATION 500l
 
 namespace st
 {
@@ -35,6 +36,8 @@ namespace st
 	    unsigned int m_size;
 	    unsigned int* m_notes;
 	    unsigned int* m_durations;
+		bool          m_armed;
+
 	    static const unsigned int DEFAULT_NOTES[];
         static const unsigned int DEFAULT_DURATIONS[];
 
@@ -43,7 +46,12 @@ namespace st
 		EX_Chime(const __FlashStringHelper *name, byte pin, unsigned int size = 2, unsigned int notes[] = DEFAULT_NOTES, unsigned int durations[] = DEFAULT_DURATIONS);
 
 		// virtuals
-        virtual void beep() const override;
+        virtual void beSmart(const String &str);
+        virtual void chime() const;
+        virtual void arm();
+        virtual void warn() const;
+        virtual void disarm();
+		virtual bool isArmed() const { return m_armed; }
 
         // debug flag
 		static bool debug;
