@@ -110,19 +110,21 @@ namespace st
     void EX_Chime::arm()
     {
         m_armed = true;
+        m_warnStamp = millis();
   		Everything::sendSmartString(getName() + F(" armed"));
     }
 
     /*
      * Sounds an armed warning only if armed.
      */
-    void EX_Chime::warn() const
+    void EX_Chime::warn()
     {
         if (m_armed)
         {
-		    if(millis() % MILLIS_PER_SECOND == 0)
+		    if(millis() - m_warnStamp > MILLIS_PER_SECOND)
 		    {
                 EX_Tone::beep(WARN_NOTE, WARN_DURATION);
+                m_warnStamp = millis();
 		    }
         }
     }

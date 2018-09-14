@@ -37,6 +37,7 @@ namespace st
 	    unsigned int* m_notes;
 	    unsigned int* m_durations;
 		bool          m_armed;
+		unsigned long m_warnStamp;
 
 	    static const unsigned int DEFAULT_NOTES[];
         static const unsigned int DEFAULT_DURATIONS[];
@@ -49,7 +50,7 @@ namespace st
         virtual void beSmart(const String &str);
         virtual void chime() const;
         virtual void arm();
-        virtual void warn() const;
+        virtual void warn();
         virtual void disarm();
 		virtual bool isArmed() const { return m_armed; }
 
