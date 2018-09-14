@@ -24,8 +24,8 @@
 #define TEMPO_BPM 60
 #define TEMPO_BPS TEMPO_BPM / 60
 #define MILLIS_PER_SECOND 1000
-#define WARN_FREQUENCY 400u
-#define WARN_DURATION 500l
+#define WARN_NOTE NOTE_AS7
+#define WARN_DURATION MILLIS_PER_SECOND / 6
 
 namespace st
 {
@@ -33,7 +33,7 @@ namespace st
 	{
 
 	private:
-	    unsigned int m_size;
+	    unsigned int  m_size;
 	    unsigned int* m_notes;
 	    unsigned int* m_durations;
 		bool          m_armed;

@@ -122,7 +122,7 @@ namespace st
         {
 		    if(millis() % MILLIS_PER_SECOND == 0)
 		    {
-                EX_Tone::beep(WARN_FREQUENCY, WARN_DURATION);
+                EX_Tone::beep(WARN_NOTE, WARN_DURATION);
 		    }
         }
     }
