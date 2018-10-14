@@ -10,7 +10,7 @@
 //				- String &name - REQUIRED - the name of the object - must match the Groovy ST_Anything DeviceType tile name
 //				- long interval - REQUIRED - the polling interval in milliseconds
 //				- long offset - REQUIRED - the polling interval offset in milliseconds - used to prevent all polling sensors from executing at the same time
-//				- byte pin - REQUIRED - the Arduino Pin to be used as a digital output
+//				- byte pin - REQUIRED - the Arduino Pin to be used as an analog input
 //              - int co2_threshold - OPTIONAL - the threshold (0 - 1024) above which CO2 has been detected.
 //              - int smoke_threshold - OPTIONAL - the threshold (0 - 1024) above which smoke has been detected.
 //
@@ -43,6 +43,7 @@ namespace st
 
 	void PS_SmokeCo2::init()
 	{
+		
 		updateAndSend(true);
 	}
 

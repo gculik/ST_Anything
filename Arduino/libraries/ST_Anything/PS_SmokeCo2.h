@@ -34,7 +34,7 @@ namespace st
 			void updateAndSend(bool forceSend);
 
 		public:
-			PS_SmokeCo2(const __FlashStringHelper *name, unsigned int interval, int offset, byte analogInputPin, int co2_threshold=125, int smoke_threshold=250);
+			PS_SmokeCo2(const __FlashStringHelper *name, unsigned int interval, int offset, byte analogInputPin, int co2_threshold=250, int smoke_threshold=500);
 			virtual ~PS_SmokeCo2();
 
 			virtual void init();
